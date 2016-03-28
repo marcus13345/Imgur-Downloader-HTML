@@ -1,0 +1,121 @@
+textarea:focus, input:focus{
+    outline: none;
+}
+@@font-face {
+  font-family: ubuntu;
+  src: url(Ubuntu-M.ttf);
+}
+*:focus {
+    outline: none;
+    color: rgba(0,0,0,.7);
+}
+body, html {
+  background-color: #f0f0f0;
+  padding: 0px;
+  margin: 0px;
+  font-size: 14px;
+}
+* {
+  font-family: sans-serif;
+}
+#header {
+  background-color: #2196F3;
+  width: 100%;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 50px;
+  box-shadow: 0px 2px 3px rgba(0,0,0,.3);
+  overflow: hidden;
+}
+#header>#title {
+    padding-left:5px;
+}
+#search {
+  width: 100%;
+  float: right;
+  max-width: none;
+  height: 38px;
+  margin: 6px auto;
+  background-color: white;
+  box-shadow: 0px 2px 3px rgba(0,0,0,.3);
+  border-radius: 2px;
+}
+@media (min-width: 768px) {
+  #search {
+    max-width: 300px;
+  }
+  #header>#title {
+    padding-left: 50px;
+  }
+  #search {
+    margin: 6px 24px;
+  }
+}
+#search>input {
+  display: block;
+  margin: 3px;
+  width: calc(100% - 6px);
+  height: calc(100% - 6px);
+  overflow: hidden;
+  outline: none;
+  border: none;
+  color: rgba(0,0,0,.7);
+  padding: 0px;
+  line-height: calc(100% - 6px);
+}
+::-webkit-input-placeholder {
+  font-size:12px;
+  padding-top: 2px;
+  line-height: 14px;
+}
+.card {
+  background-color: white;
+  width: 100%;
+  border-radius: 3px;
+  box-shadow: 0px 2px 3px rgba(0,0,0,.2), 0px 0px 2px rgba(0,0,0,.3);
+  margin-top 24px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+h1 {
+  font-size: 1em;
+  color: rgba(0,0,0,.5);
+  font-weight: bold;
+}
+.cardGroup {
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: ubuntu;
+  padding: 8px 0px;
+}
+.placeholder {
+  line-height: 50px;
+  text-align: center;
+  color: rgba(0,0,0,.4);
+  font-weight: bold;
+}
+.divider {
+  border-top: 1px solid rgba(0,0,0,.2);
+}
+.item::after {
+  height: 55px;
+}
+.item {
+  padding: 8px;
+  height: 0px;
+  transition: * 2s;
+}
+.item>.header {
+  font-weight: bold;
+  color: rgba(0,0,0,.75);
+}
+.item>.status {
+  font-size: 11px;
+  padding-top: 4px;
+  color: rgba(0,0,0,.5);
+  font-weight: bold;
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="import" href="scripts.html">
+		<meta charset="UTF-8">
+		<title>Hello World!</title>
+	</head>
+	<body onkeypress="return keyPressed(event)">
+		<div id="header" class="container">
+			<div id="title" class="col-sm-5">The Imgur Downloader</div>
+			<div class="col-sm-7">
+				<div id="search">
+					<input type="text" placeholder="Enter a Subreddit">
+				</div>
+			</div>
+		</div>
+		<div id="downloads">
+
+			<div class="col-md-4">
+				<div class="cardGroup">
+					<h1>Downloading</h1>
+					<div class="card" id="downloading">
+
+						<div class="divider"></div>
+
+						<div class="item">
+							<div class="header">
+								Emma Watson
+							</div>
+							<div class="status">
+								Scanning Page 1...
+							</div>
+						</div>
+
+						<div class="divider"></div>
+
+						<div class="item">
+							<div class="header">
+								Emma Watson
+							</div>
+						</div>
+
+						<div class="divider"></div>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				<div class="cardGroup">
+					<h1>Finished</h1>
+					<div class="card">
+						<div id="finished">
+
+						</div>
+						<div class="placeholder" id="finshedPlaceholder">
+							Nothing has finished yet
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				<div class="cardGroup">
+					<h1>Failed</h1>
+					<div class="card" id="failed">
+						<div class="item">
+							<div class="header">
+								Emma Watson
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</body>
+</html>

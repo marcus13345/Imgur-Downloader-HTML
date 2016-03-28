@@ -6,7 +6,6 @@ const app = electron.app;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
 
-const fs = require('fs');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -15,12 +14,12 @@ let mainWindow;
 function createWindow () {
 	// Create the browser window.
 	mainWindow = new BrowserWindow({
-		width: 800,
+		width: 992,
 		height: 600//,
 		//'web-preferences': {'web-security': false}
 	});
 	// and load the index.html of the app.
-	mainWindow.loadURL('file://' + __dirname + '/index.html');
+	mainWindow.loadURL('file://' + __dirname + '/html/index.html');
 	// Open the DevTools.
 	mainWindow.webContents.openDevTools();
 	// Emitted when the window is closed.
@@ -40,9 +39,9 @@ app.on('ready', createWindow);
 app.on('window-all-closed', function () {
 	// On OS X it is common for applications and their menu bar
 	// to stay active until the user quits explicitly with Cmd + Q
-	if (process.platform !== 'darwin') {
+	//if (process.platform !== 'darwin') {
 		app.quit();
-	}
+	//}
 });
 
 app.on('activate', function () {
