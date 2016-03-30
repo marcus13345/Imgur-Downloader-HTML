@@ -1,7 +1,7 @@
 var $ = require('jquery');
 
 document.getElementsByTagName("body")[0].style.background = 'red';
-/*
+
 var data = {"downloads":[
   {
     "subreddit": "emmawatson",
@@ -29,7 +29,7 @@ const DIVIDER = "<div id=\"divider\"></div>";
     Scanning Page 1...
   </div>
 </div>
-*//*
+*/
 function updateItems() {
   //print out items to downloads section thing
 }
@@ -44,4 +44,3 @@ UI.addItem(0, 0);
 setTimeout(function() {
 
 }, 0);
-*/
