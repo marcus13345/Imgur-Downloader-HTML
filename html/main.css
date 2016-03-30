@@ -5,6 +5,12 @@ textarea:focus, input:focus{
   font-family: ubuntu;
   src: url(Ubuntu-M.ttf);
 }
+@keyframes item-animate-in{
+  from {
+    height: 0px;
+    padding: 0px 8px;
+  }
+}
 *:focus {
     outline: none;
     color: rgba(0,0,0,.7);
@@ -93,7 +99,7 @@ h1 {
   padding: 8px 0px;
 }
 .placeholder {
-  line-height: 50px;
+  line-height: 55px;
   text-align: center;
   color: rgba(0,0,0,.4);
   font-weight: bold;
@@ -101,13 +107,13 @@ h1 {
 .divider {
   border-top: 1px solid rgba(0,0,0,.2);
 }
-.item::after {
-  height: 55px;
-}
 .item {
+  animation-name: item-animate-in;
+  animation-duration: 500ms;
   padding: 8px;
   height: 0px;
-  transition: * 2s;
+  height: 55px;
+  overflow: hidden;
 }
 .item>.header {
   font-weight: bold;
