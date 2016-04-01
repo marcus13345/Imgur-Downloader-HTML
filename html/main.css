@@ -11,6 +11,16 @@ textarea:focus, input:focus{
     padding: 0px 8px;
   }
 }
+@keyframes item-animate-out{
+  to {
+    height: 0px;
+    padding: 0px 8px;
+  }
+  from {
+    height: 55px;
+    padding: 8px;
+  }
+}
 *:focus {
     outline: none;
     color: rgba(0,0,0,.7);
@@ -103,6 +113,11 @@ h1 {
   text-align: center;
   color: rgba(0,0,0,.4);
   font-weight: bold;
+  transition: line-height 500ms;
+  overflow: hidden;
+}
+.placeholder.closed {
+  line-height: 0px;
 }
 .divider {
   border-top: 1px solid rgba(0,0,0,.2);
@@ -124,4 +139,10 @@ h1 {
   padding-top: 4px;
   color: rgba(0,0,0,.5);
   font-weight: bold;
+}
+.item.closing {
+  animation-name: item-animate-out;
+  animation-duration: 500ms;
+  height: 0px;
+  padding: 0px 8px;
 }

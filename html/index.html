@@ -10,7 +10,7 @@
 			<div id="title" class="col-sm-5">The Imgur Downloader</div>
 			<div class="col-sm-7">
 				<div id="search">
-					<input type="text" placeholder="Enter a Subreddit">
+					<input type="text" onkeypress="return keyPressed(event)" placeholder="Enter a Subreddit">
 				</div>
 			</div>
 		</div>
@@ -20,7 +20,7 @@
 				<div class="cardGroup">
 					<h1>Downloading</h1>
 					<div class="card">
-						<div class="downloading">
+						<div id="downloading">
 
 						</div>
 						<div class="placeholder" id="downloadingPlaceholder">
@@ -37,7 +37,7 @@
 						<div id="finished">
 
 						</div>
-						<div class="placeholder" id="finshedPlaceholder">
+						<div class="placeholder" id="finishedPlaceholder">
 							Nothing has finished yet
 						</div>
 					</div>
