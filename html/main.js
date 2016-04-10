@@ -22,10 +22,6 @@ const CARD_GROUPS = ["downloading", "finished", "failed"];
 const DIVIDER = "<div class=\"divider\" id=\"r-{{Name}}-divider\"></div>";
 const ITEM_TEMPLATE = '<div class="item" id="r-{{Name}}"><div class="header">{{Name}}</div><div class="status">{{Status}}</div></div>';
 
-function updateItems() {
-  //print out items to downloads section thing
-}
-
 var UI = {
   addItem: function (area, subreddit, status) {
     var items = $("#" + area);
@@ -54,8 +50,15 @@ var UI = {
         }
       });
     }, 500);
+  },
+  changeStatus: function(subreddit, status) {
+
   }
-}
+};
+
+var Imgur = {
+
+};
 
 function getPage(subreddit) {
   return JSON.parse($.ajax({
@@ -72,13 +75,22 @@ var poop = getPage("emmawatson");
 console.log(poop);
 
 function command(str) {
-
   setTimeout(function(){
 
-  }, 0);
 
+
+  }, 0);
 }
 
 function download(subreddit, pages) {
   UI.addItem("downloading", "subreddit", "Initializing download...");
+}
+
+function search(e) {
+  if(e.keyCode != 13) return true;
+  var commandStr = $("#search>input").val();
+  console.log(commandStr);
+  command(commandStr);
+  $("#search>input").val("");
+  return false;
 }
