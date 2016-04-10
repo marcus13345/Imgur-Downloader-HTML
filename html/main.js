@@ -1,4 +1,5 @@
 var $ = require('jquery');
+var remote = require('remote');
 
 var data = {"downloads":[
   {
