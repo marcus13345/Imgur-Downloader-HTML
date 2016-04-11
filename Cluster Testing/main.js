@@ -2,9 +2,9 @@ var cluster = require('cluster');
 
 if (cluster.isWorker) {
   //so be like ay, im fucking here
-  console.log('Worker ' + (process.pid % 10) + ' has started.');
+  console.log('Worker -> Debug:   ' + (process.pid % 100) + ' has started.');
 
-  process.send('This is from worker ' + (process.pid % 10) + '.');
+  process.send('This is from worker ' + (process.pid % 100) + '.');
 
   //so when we get a message
   process.on('message', function(msg) {
@@ -14,7 +14,7 @@ if (cluster.isWorker) {
 }
 
 if (cluster.isMaster) {
-  console.log('Master ' + (process.pid % 10) + ' has started.');
+  console.log('Master -> Debug:   ' + (process.pid % 100) + ' has started.');
 
   //one last thing, lets make 10 workers now instead.
   for (var i = 0; i < 10; i++) {
@@ -24,13 +24,13 @@ if (cluster.isMaster) {
       });
 
       // send master -> worker                                                      \/ its this one
-      worker.send('This is from master ' + (process.pid % 10) + ' to worker ' + (worker.process.pid % 10) + '.');
-      worker.send("" + (worker.process.pid % 10));
+      worker.send('This is from master ' + (process.pid % 100) + ' to worker ' + (worker.process.pid % 100) + '.');
+      worker.send("" + (worker.process.pid % 100));
   }
 
   //some cleanup shit, fuck it
   cluster.on('death', function(worker) {
-    console.log('Worker ' + (worker.process.pid % 10) + ' died.');
+    console.log('Worker ' + (worker.process.pid % 100) + ' died.');
   });
 
 }
