@@ -1,5 +1,15 @@
 var $ = require('jquery');
 var remote = require('remote');
+var path = require('path');
+var fs = require('fs');
+var os = require('os');
+//var Worker = require('webworker-threads').Worker;
+var cluster = require('cluster');
+var http = require('http');
+var numCPUs = 4;
+
+var cluster = require('cluster'),
+    os      = require('os');
 
 var data = {"downloads":[
   {
@@ -52,39 +62,86 @@ var UI = {
     }, 500);
   },
   changeStatus: function(subreddit, status) {
-
+    $("#r-" + subreddit + ">.status").html(status);
+  },
+  getStatus: function(subreddit) {
+    return $("#r-" + subreddit + ">.status").html();
+  },
+  moveItem: function(subreddit, area) {
+    var currentStatus = UI.getStatus(subreddit);
+    UI.removeItem(subreddit);
+    UI.addItem(area, subreddit, currentStatus);
   }
 };
 
 var Imgur = {
-
+  getPage: function (subreddit, page, callback, failCallback) {
+    $.ajax({
+      url:"https://api.imgur.com/3/gallery/r/" + subreddit + "/" + (page - 1) + ".json",
+      headers: {
+        "Authorization": "client-id 76535d44f1f94da"
+      },
+      error: failCallback
+    }).success(function(result){
+      callback(result);
+    });
+  }
 };
 
-function getPage(subreddit) {
-  return JSON.parse($.ajax({
-    url:"https://api.imgur.com/3/gallery/r/" + subreddit + "/0.json",
-    async: false,
-    headers: {
-      "Authorization": "client-id 76535d44f1f94da"
+var Commands = {
+  download: function (subreddit, pages) {
+    UI.addItem("downloading", subreddit, "Initializing download...");
+
+    //check the subreddit's existence
+    Imgur.getPage(subreddit, 1, function(page){
+      if (page.data.length == 0) {
+          UI.moveItem(subreddit, "failed");
+          UI.changeStatus(subreddit, "Subreddit does not exist");
+          return;
+      }
+
+    }, function() {
+        UI.moveItem(subreddit, "failed");
+        UI.changeStatus(subreddit, "Imgur Responded with an internal error");
+    });
+
+
+  }
+};
+
+var Files = {
+  baseFolder: "",
+  setup: function() {
+    //just sanity check that yo
+    if(Files.baseFolder == "") {
+      Files.baseFolder = path.join(os.homedir(), "Desktop", "imgur");
     }
-  }).responseText);
-}
 
-var poop = getPage("emmawatson");
+    var baseFolderExists = false;
+    try{
+      fs.stat(Files.baseFolder);
+    }catch(err) {
+      //if we errored, then it probably isnt real...
+      fs.mkdir(Files.baseFolder);
+    }
+  },
+  createFolder: function(folder) {
 
-console.log(poop);
+  }
+};
 
 function command(str) {
-  setTimeout(function(){
+  /*
+  new Worker(function(){
+    //we're going to assume the str is just the name of a page...
+    Commands.download(str, 1);
+  });*/
 
-
-
+  setTimeout(function() {
+    //we're going to assume the str is just the name of a page...
+    Commands.download(str, 1);
   }, 0);
-}
-
-function download(subreddit, pages) {
-  UI.addItem("downloading", "subreddit", "Initializing download...");
-}
+};
 
 function search(e) {
   if(e.keyCode != 13) return true;
@@ -94,3 +151,28 @@ function search(e) {
   $("#search>input").val("");
   return false;
 }
+
+
+function call(cmd, args) {
+  var spawn = require('child_process').spawn;
+  var ls = spawn(cmd, args);
+
+  ls.stdout.on('data', (data) => {
+    console.log(`stdout: ${data}`);
+  });
+
+  ls.stderr.on('data', (data) => {
+    console.log(`stderr: ${data}`);
+  });
+
+  ls.on('close', (code) => {
+    console.log(`child process exited with code ${code}`);
+  });
+
+}
+
+
+
+//TESTING FUCNTIONS
+command("emmawatson");
+command("nonexistantsubredditkljhdsfgkh");
