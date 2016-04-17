@@ -1,36 +1,44 @@
-var $ = require('jquery');
-var remote = require('remote');
+var $ = require('jQuery');
+var remote = null;
 var path = require('path');
 var fs = require('fs');
-var os = require('os');
-//var Worker = require('webworker-threads').Worker;
 var cluster = require('cluster');
-var http = require('http');
-var numCPUs = 4;
+var os = require('os');
+var request = require('request');
 
-var cluster = require('cluster'),
-    os      = require('os');
-
-var data = {"downloads":[
-  {
-    "subreddit": "emmawatson",
-    "properName": "Emma Watson",
-    "pages":10,
-    "scanned": 240,
-    "downloaded":156
-  },
-  {
-    "subreddit": "emmastone",
-    "properName": "Emma Stone",
-    "pages":10,
-    "scanned": 180,
-    "downloaded":74
-  }
-]};
-
+//DESCRIBES THE AREAS IN DOM
 const CARD_GROUPS = ["downloading", "finished", "failed"];
+
+//DOM TEMPLATES FOR UI
 const DIVIDER = "<div class=\"divider\" id=\"r-{{Name}}-divider\"></div>";
 const ITEM_TEMPLATE = '<div class="item" id="r-{{Name}}"><div class="header">{{Name}}</div><div class="status">{{Status}}</div></div>';
+
+//MESSAGES TO BE SENT BETWEEN PROCESSES
+const READY_MESSAGE = 'READY_SEND_COMMAND';
+const SEND_COMMAND = 'COMMAND';
+const LOG_COMMAND = 'CONSOLE_LOG';
+const UI_ADD_ITEM = 'UI_ADD_ITEM';
+const UI_UPDATE_STATUS = 'UI_UPDATE_STATUS';
+const UI_MOVE_ITEM = 'UI_MOVE_ITEM';
+
+
+if(cluster.isMaster) {
+  require('remote');
+  cluster.setupMaster({
+    exec: path.join(__dirname, "main.js"),
+    //args: ['--use', 'https'],
+    silent: false
+  });
+
+  command("emmawatson");
+  command("nonexistantsubredditkljhdsfgkh");
+}
+if(cluster.isWorker) {
+  process.on('message', function(msg) {
+    Commands.download(msg, 1);
+  });
+  process.send(READY_MESSAGE);
+}
 
 var UI = {
   addItem: function (area, subreddit, status) {
@@ -76,36 +84,39 @@ var UI = {
 
 var Imgur = {
   getPage: function (subreddit, page, callback, failCallback) {
-    $.ajax({
+    request({
       url:"https://api.imgur.com/3/gallery/r/" + subreddit + "/" + (page - 1) + ".json",
       headers: {
         "Authorization": "client-id 76535d44f1f94da"
-      },
-      error: failCallback
-    }).success(function(result){
-      callback(result);
+      }
+    }, (err, response, body) => {
+      if (err){
+        failCallback(response, body);
+        return;
+      }
+      callback(JSON.parse(body));
     });
+
+
   }
 };
 
+//these are basically all happening worker side
 var Commands = {
   download: function (subreddit, pages) {
-    UI.addItem("downloading", subreddit, "Initializing download...");
+    send(UI_ADD_ITEM, subreddit);
 
-    //check the subreddit's existence
-    Imgur.getPage(subreddit, 1, function(page){
+    Imgur.getPage(subreddit, 1, (page) => {
       if (page.data.length == 0) {
-          UI.moveItem(subreddit, "failed");
-          UI.changeStatus(subreddit, "Subreddit does not exist");
-          return;
+        send(UI_MOVE_ITEM, subreddit, "failed");
+        send(UI_UPDATE_STATUS, subreddit, "Subreddit does not exist");
+        return;
       }
-
-    }, function() {
-        UI.moveItem(subreddit, "failed");
-        UI.changeStatus(subreddit, "Imgur Responded with an internal error");
+      send(LOG_COMMAND, page);
+    }, () => {
+      send(UI_MOVE_ITEM, subreddit, "failed");
+      send(UI_UPDATE_STATUS, subreddit, "Imgur Responded with an internal error");
     });
-
-
   }
 };
 
@@ -131,16 +142,28 @@ var Files = {
 };
 
 function command(str) {
-  /*
-  new Worker(function(){
-    //we're going to assume the str is just the name of a page...
-    Commands.download(str, 1);
-  });*/
+  //i dont think it can happen because only master is hooked into DOM
+  //but just in case, right, lets just check.
+  if(cluster.isWorker) return;
+  var worker = cluster.fork();
+  worker.on('message', function(message) {
+    console.log(message);
 
-  setTimeout(function() {
-    //we're going to assume the str is just the name of a page...
-    Commands.download(str, 1);
-  }, 0);
+    var parts = message.split("\r\n");
+
+    if(message == READY_MESSAGE) {
+      worker.send(str);
+      console.log("sent " + str);
+    }else if(parts[0] == UI_ADD_ITEM) {
+      UI.addItem("downloading", parts[1], "Initializing download...");
+    }else if(parts[0] == UI_MOVE_ITEM) {
+      UI.moveItem(parts[1], parts[2]);
+    }else if(parts[0] == UI_UPDATE_STATUS) {
+      UI.changeStatus(parts[1], parts[2]);
+    }else if(parts[0] == LOG_COMMAND) {
+      console.log(parts[1]);
+    }
+  });
 };
 
 function search(e) {
@@ -152,27 +175,7 @@ function search(e) {
   return false;
 }
 
-
-function call(cmd, args) {
-  var spawn = require('child_process').spawn;
-  var ls = spawn(cmd, args);
-
-  ls.stdout.on('data', (data) => {
-    console.log(`stdout: ${data}`);
-  });
-
-  ls.stderr.on('data', (data) => {
-    console.log(`stderr: ${data}`);
-  });
-
-  ls.on('close', (code) => {
-    console.log(`child process exited with code ${code}`);
-  });
-
+//function for sending RPCs back to master
+function send(...args) {
+  process.send(args.join("\r\n"))
 }
-
-
-
-//TESTING FUCNTIONS
-command("emmawatson");
-command("nonexistantsubredditkljhdsfgkh");
