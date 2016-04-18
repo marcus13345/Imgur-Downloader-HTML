@@ -7,6 +7,17 @@ var cluster = require('cluster');
 var os = require('os');
 var request = require('request');
 
+function testIO() {
+  var filepath = path.join(__dirname, "image.jpg");
+  var filepath2 = path.join(__dirname, "test.txt");
+  var filepath3 = path.join(__dirname, "reddit.json");
+  send(CONSOLE_LOG, filepath);
+  request({url:"http://i.imgur.com/InnEHyN.jpg"}).pipe(fs.createWriteStream(filepath));
+  send(CONSOLE_LOG, filepath2);
+  fs.writeFileSync(filepath2, "Sample Text");
+  request({url:"http://reddit.com/r/emmawatson.json"}, (err, response, body) => {});
+}
+
 //DESCRIBES THE AREAS IN DOM
 const CARD_GROUPS = ["downloading", "finished", "failed"];
 
@@ -23,7 +34,7 @@ const UI_UPDATE_STATUS = 'UI_UPDATE_STATUS';
 const UI_MOVE_ITEM = 'UI_MOVE_ITEM';
 
 if(cluster.isMaster) {
-  require('remote');
+  remote = require('remote');
   cluster.setupMaster({
     exec: path.join(__dirname, "main.js"),
     //args: ['--use', 'https'],
@@ -32,11 +43,13 @@ if(cluster.isMaster) {
 
   command("emmawatson");
   command("nonexistantsubredditkljhdsfgkh");
+
 }
 if(cluster.isWorker) {
   process.on('message', function(msg) {
-    Commands.download(msg, 10);
+    Commands.download(msg, 4);
   });
+
   process.send(READY_MESSAGE);
 }
 
@@ -102,57 +115,34 @@ var Imgur = {
 //these are basically all happening worker side
 var Commands = {
   download: function (subreddit, pageCount) {
-    send(UI_ADD_ITEM, subreddit);
 
-    //brace yourselves, this next code is abolute trash.
-    //using async when the workflow is clearly synchronous.
+    testIO();
 
-    var pages = [];
-    var itemCount = 0;
+  },
+  downloadPages: function(subreddit, pages, imageCount) {
 
-    Imgur.getPage(subreddit, 1, (page) => {
-      if (page.data.length == 0) {
-        send(UI_MOVE_ITEM, subreddit, "failed");
-        send(UI_UPDATE_STATUS, subreddit, "Subreddit does not exist");
-        return;
+    send(CONSOLE_LOG, "hey uh, you there mate?");
+    testIO();
+    //send(UI_MOVE_ITEM, subreddit, "finished");
+    Files.setup();
+
+
+
+    var completedImages = 0;
+    for (var i = 0; i < pages.length; i++) {
+      var page = pages[i];
+      for (var j = 0; j < page.data.length; j++) {
+        var post = page.data[j];
+        var filepath = Files.createPath(post);
+        //send(CONSOLE_LOG_JSON, JSON.stringify({url: post.link}));
+        //send(CONSOLE_LOG, filepath);
+        //request({url: post.link}).pipe(fse.createWriteStream(filepath));
+        // .on('close', () => {
+        //   completedImages += 1;
+        //   send(UI_UPDATE_STATUS, subreddit, "downloading " + completedImages + " of " + imageCount);
+        // });
       }
-      itemCount += page.data.length;
-      pages[0] = page;
-      //send(CONSOLE_LOG_JSON, JSON.stringify(page));
-    }, () => {
-      send(UI_MOVE_ITEM, subreddit, "failed");
-      send(UI_UPDATE_STATUS, subreddit, "Imgur Responded with an internal error");
-    });
-    //okay so ites real, and we should scan shit.
-
-    var pagesCompleted = [pageCount];
-    for(var j = 0; j < pageCount; j++) {
-      pagesCompleted[j] = false;
     }
-    send(CONSOLE_LOG_JSON, JSON.stringify(pagesCompleted));
-    var derpfunction = function() {
-
-    };
-    var calledDerpFunction = false;
-    for (var i = 1; i < pageCount; i++) {
-      Imgur.getPage(subreddit, i + 1, (page) => {
-        itemCount += page.data.length;
-        pages[i] = page;
-        var done = true;
-        //check to see if we're done
-        for(var j = 0; j < pageCount; j++) {
-          if(pagesCompleted[j] == false) {
-            done = false;
-            break;
-          }
-        }
-        if(done) {
-          derpFunction()
-        }
-        //send(CONSOLE_LOG_JSON, JSON.stringify(page));
-      }, () => {});
-    }
-
   }
 };
 
@@ -161,9 +151,19 @@ var Files = {
   setup: function() {
     //just sanity check that yo
     if(Files.baseFolder == "") {
-      Files.baseFolder = path.join(os.homedir(), "Desktop", "imgur", "poop");
+      Files.baseFolder = path.join(os.homedir(), "Desktop", "imgur");
     }
-    fse.ensureDir(Files.baseFolder, (err) => {});
+    fse.ensureDirSync(Files.baseFolder)
+  },
+  createPath: function(post) {
+    fse.ensureDirSync(path.join(Files.baseFolder, post.section));
+    return path.join(Files.baseFolder, post.section, post.id) + "." + Files.getExtension(post.type);
+  },
+  getExtension: function(mimetype) {
+    if(mimetype == "image/png") return "png";
+    if(mimetype == "image/jpeg") return "jpg";
+    if(mimetype == "image/gif") return "gif";
+    return "jpg";
   }
 };
 

@@ -13,7 +13,7 @@ let mainWindow;
 function createWindow () {
 	// Create the browser window.
 	mainWindow = new BrowserWindow({
-		width: 1500,
+		width: 992,
 		height: 600//,
 		//'web-preferences': {'web-security': false}
 	});
