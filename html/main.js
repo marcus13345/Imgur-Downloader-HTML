@@ -2,6 +2,7 @@ var $ = require('jQuery');
 var remote = null;
 var path = require('path');
 var fs = require('fs');
+var fse = require('fs-extra');
 var cluster = require('cluster');
 var os = require('os');
 var request = require('request');
@@ -15,12 +16,11 @@ const ITEM_TEMPLATE = '<div class="item" id="r-{{Name}}"><div class="header">{{N
 
 //MESSAGES TO BE SENT BETWEEN PROCESSES
 const READY_MESSAGE = 'READY_SEND_COMMAND';
-const SEND_COMMAND = 'COMMAND';
-const LOG_COMMAND = 'CONSOLE_LOG';
+const CONSOLE_LOG = 'CONSOLE_LOG';
+const CONSOLE_LOG_JSON = 'CONSOLE_LOG_JSON';
 const UI_ADD_ITEM = 'UI_ADD_ITEM';
 const UI_UPDATE_STATUS = 'UI_UPDATE_STATUS';
 const UI_MOVE_ITEM = 'UI_MOVE_ITEM';
-
 
 if(cluster.isMaster) {
   require('remote');
@@ -35,7 +35,7 @@ if(cluster.isMaster) {
 }
 if(cluster.isWorker) {
   process.on('message', function(msg) {
-    Commands.download(msg, 1);
+    Commands.download(msg, 10);
   });
   process.send(READY_MESSAGE);
 }
@@ -96,15 +96,19 @@ var Imgur = {
       }
       callback(JSON.parse(body));
     });
-
-
   }
 };
 
 //these are basically all happening worker side
 var Commands = {
-  download: function (subreddit, pages) {
+  download: function (subreddit, pageCount) {
     send(UI_ADD_ITEM, subreddit);
+
+    //brace yourselves, this next code is abolute trash.
+    //using async when the workflow is clearly synchronous.
+
+    var pages = [];
+    var itemCount = 0;
 
     Imgur.getPage(subreddit, 1, (page) => {
       if (page.data.length == 0) {
@@ -112,11 +116,43 @@ var Commands = {
         send(UI_UPDATE_STATUS, subreddit, "Subreddit does not exist");
         return;
       }
-      send(LOG_COMMAND, page);
+      itemCount += page.data.length;
+      pages[0] = page;
+      //send(CONSOLE_LOG_JSON, JSON.stringify(page));
     }, () => {
       send(UI_MOVE_ITEM, subreddit, "failed");
       send(UI_UPDATE_STATUS, subreddit, "Imgur Responded with an internal error");
     });
+    //okay so ites real, and we should scan shit.
+
+    var pagesCompleted = [pageCount];
+    for(var j = 0; j < pageCount; j++) {
+      pagesCompleted[j] = false;
+    }
+    send(CONSOLE_LOG_JSON, JSON.stringify(pagesCompleted));
+    var derpfunction = function() {
+
+    };
+    var calledDerpFunction = false;
+    for (var i = 1; i < pageCount; i++) {
+      Imgur.getPage(subreddit, i + 1, (page) => {
+        itemCount += page.data.length;
+        pages[i] = page;
+        var done = true;
+        //check to see if we're done
+        for(var j = 0; j < pageCount; j++) {
+          if(pagesCompleted[j] == false) {
+            done = false;
+            break;
+          }
+        }
+        if(done) {
+          derpFunction()
+        }
+        //send(CONSOLE_LOG_JSON, JSON.stringify(page));
+      }, () => {});
+    }
+
   }
 };
 
@@ -125,19 +161,9 @@ var Files = {
   setup: function() {
     //just sanity check that yo
     if(Files.baseFolder == "") {
-      Files.baseFolder = path.join(os.homedir(), "Desktop", "imgur");
+      Files.baseFolder = path.join(os.homedir(), "Desktop", "imgur", "poop");
     }
-
-    var baseFolderExists = false;
-    try{
-      fs.stat(Files.baseFolder);
-    }catch(err) {
-      //if we errored, then it probably isnt real...
-      fs.mkdir(Files.baseFolder);
-    }
-  },
-  createFolder: function(folder) {
-
+    fse.ensureDir(Files.baseFolder, (err) => {});
   }
 };
 
@@ -147,21 +173,22 @@ function command(str) {
   if(cluster.isWorker) return;
   var worker = cluster.fork();
   worker.on('message', function(message) {
-    console.log(message);
+    //console.log(message);
 
     var parts = message.split("\r\n");
 
     if(message == READY_MESSAGE) {
       worker.send(str);
-      console.log("sent " + str);
     }else if(parts[0] == UI_ADD_ITEM) {
       UI.addItem("downloading", parts[1], "Initializing download...");
     }else if(parts[0] == UI_MOVE_ITEM) {
       UI.moveItem(parts[1], parts[2]);
     }else if(parts[0] == UI_UPDATE_STATUS) {
       UI.changeStatus(parts[1], parts[2]);
-    }else if(parts[0] == LOG_COMMAND) {
+    }else if(parts[0] == CONSOLE_LOG) {
       console.log(parts[1]);
+    }else if(parts[0] == CONSOLE_LOG_JSON) {
+      console.log(JSON.parse(parts[1]));
     }
   });
 };

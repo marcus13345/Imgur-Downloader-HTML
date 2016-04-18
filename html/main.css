@@ -2,20 +2,20 @@ textarea:focus, input:focus{
     outline: none;
 }
 :root {
-  /*
+
   --theme-color: #4CAF50;
   --background-color: #f0f0f0;
   --card-color: #fff;
   --light-text: rgba(0, 0, 0, .5);
   --ultra-light-text: rgba(0, 0, 0, .4);
   --medium-text: rgba(0,0,0,.75);
-  */
+  /*
   --theme-color: #FE9900;
   --background-color: #303030;
   --card-color: #424242;
   --light-text: rgba(255, 255, 255, .5);
   --ultra-light-text: rgba(255, 255, 255, .4);
-  --medium-text: rgba(255, 255, 255, .75);
+  --medium-text: rgba(255, 255, 255, .75);*/
 }
 @font-face {
   font-family: ubuntu;
