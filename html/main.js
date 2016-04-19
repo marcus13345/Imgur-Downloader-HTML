@@ -42,7 +42,7 @@ if(cluster.isMaster) {
   });
 
   command("emmawatson");
-  //command("nonexistantsubredditkljhdsfgkh");
+  command("nonexistantsubredditkljhdsfgkh");
 
 }
 if(cluster.isWorker) {
@@ -92,6 +92,24 @@ var UI = {
     var currentStatus = UI.getStatus(subreddit);
     UI.removeItem(subreddit);
     UI.addItem(area, subreddit, currentStatus);
+  },
+  initStrings: [
+    "Waiting for Imgur...",
+    "Contacting The Unicorn Foundation...",
+    "Searching for lost pandas...",
+    "Questioning existence...",
+    "Hacking the database...",
+    "Enhancing the vector layer...",
+    "Feeding bunnies...",
+    "Taking out the trash...",
+    "Marvelling at a double rainbow...",
+    "Turning it off and back on again..."
+  ],
+  initPointer: 0,
+  getInitializingString: function() {
+    var _return = UI.initStrings[UI.initPointer];
+    UI.initPointer = Math.floor((Math.random() * UI.initStrings.length));
+    return _return;
   }
 };
 
@@ -120,6 +138,7 @@ var Commands = {
 
     var scannedImages = 0;
     var downloadedImages = 0;
+    var scannedPages = 0;
 
     send(UI_ADD_ITEM, subreddit);
 
@@ -128,6 +147,12 @@ var Commands = {
         //send(CONSOLE_LOG_JSON, JSON.stringify(page));
 
         scannedImages += page.data.length;
+        scannedPages ++;
+
+        if(scannedPages == pageCount && scannedImages == 0) {
+          send(UI_MOVE_ITEM, subreddit, "failed");
+          send(UI_UPDATE_STATUS, subreddit, "subreddit does not exist");
+        }
 
         for(var i = 0; i < page.data.length; i ++) {
           var post = page.data[i];
@@ -138,7 +163,12 @@ var Commands = {
           .on('close', () => {
             send(CONSOLE_LOG, "WE DID A PICTURE THING MANG");
             downloadedImages ++;
-            send(UI_UPDATE_STATUS, subreddit, "Downloaded " + downloadedImages + " of " + scannedImages + " images")
+            send(UI_UPDATE_STATUS, subreddit, "Downloaded " + downloadedImages + " of " + scannedImages + " images");
+
+            if(scannedPages == pageCount && scannedImages == downloadedImages) {
+              send(UI_MOVE_ITEM, subreddit, "finished");
+              send(UI_UPDATE_STATUS, subreddit, "" + scannedPages + " page" + (scannedPages == 1 ? "" : "s") + " downloaded (" + downloadedImages + " images)");
+            }
           });
         }
 
@@ -185,7 +215,7 @@ function command(str) {
     if(message == READY_MESSAGE) {
       worker.send(str);
     }else if(parts[0] == UI_ADD_ITEM) {
-      UI.addItem("downloading", parts[1], "Initializing download...");
+      UI.addItem("downloading", parts[1], UI.getInitializingString());
     }else if(parts[0] == UI_MOVE_ITEM) {
       UI.moveItem(parts[1], parts[2]);
     }else if(parts[0] == UI_UPDATE_STATUS) {
