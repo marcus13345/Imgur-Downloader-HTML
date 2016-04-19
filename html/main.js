@@ -42,7 +42,7 @@ if(cluster.isMaster) {
   });
 
   command("emmawatson");
-  command("nonexistantsubredditkljhdsfgkh");
+  //command("nonexistantsubredditkljhdsfgkh");
 
 }
 if(cluster.isWorker) {
@@ -103,6 +103,10 @@ var Imgur = {
         "Authorization": "client-id 76535d44f1f94da"
       }
     }, (err, response, body) => {
+
+      send(CONSOLE_LOG, err);
+      send(CONSOLE_LOG_JSON, JSON.stringify(response));
+      send(CONSOLE_LOG_JSON, body);
       if (err){
         failCallback(response, body);
         return;
@@ -116,7 +120,22 @@ var Imgur = {
 var Commands = {
   download: function (subreddit, pageCount) {
 
-    testIO();
+    Files.setup();
+    Imgur.getPage(subreddit, 1, (page) => {
+      //send(CONSOLE_LOG_JSON, JSON.stringify(page));
+      send(CONSOLE_LOG, "WE DID THE THING");
+
+      for(var i = 0; i < page.data.length; i ++) {
+        var post = page.data[i];
+        var filepath = Files.createPath(post);
+        request({
+          url: post.link
+        }).pipe(fs.createWriteStream(filepath));
+      }
+
+    }, ()=> {
+
+    });
 
   },
   downloadPages: function(subreddit, pages, imageCount) {

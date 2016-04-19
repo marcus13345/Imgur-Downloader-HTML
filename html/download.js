@@ -2,8 +2,10 @@ var fs = require('fs');
 var path = require('path');
 var request = require('request');
 var cluster = require('cluster');
+var $ = require('jquery');
 console.log("im here...");
 
+/*
 if(cluster.isMaster) {
   cluster.setupMaster({
     exec: path.join(__dirname, "download.js"),
@@ -33,3 +35,6 @@ if(cluster.isMaster) {
   }
   process.send("ASDFasdfaSDFASdfASDFasdfASDF");
 }
+*/
+
+console.log($.ajax);
