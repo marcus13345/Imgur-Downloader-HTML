@@ -23,11 +23,13 @@
   },
   "homepage": "https://github.com/atom/electron-quick-start#readme",
   "devDependencies": {
-    "electron-prebuilt": "^0.36.0"
+    "electron-prebuilt": "0.37.6"
   },
   "dependencies": {
     "bootstrap": "^3.3.6",
+    "fs-extra": "^0.27.0",
     "jquery": "^2.2.2",
+    "request": "^2.71.0",
     "webworker-threads": "^0.7.2"
   }
 }
