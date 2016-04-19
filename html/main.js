@@ -103,10 +103,6 @@ var Imgur = {
         "Authorization": "client-id 76535d44f1f94da"
       }
     }, (err, response, body) => {
-
-      send(CONSOLE_LOG, err);
-      send(CONSOLE_LOG_JSON, JSON.stringify(response));
-      send(CONSOLE_LOG_JSON, body);
       if (err){
         failCallback(response, body);
         return;
@@ -121,47 +117,37 @@ var Commands = {
   download: function (subreddit, pageCount) {
 
     Files.setup();
-    Imgur.getPage(subreddit, 1, (page) => {
-      //send(CONSOLE_LOG_JSON, JSON.stringify(page));
-      send(CONSOLE_LOG, "WE DID THE THING");
 
-      for(var i = 0; i < page.data.length; i ++) {
-        var post = page.data[i];
-        var filepath = Files.createPath(post);
-        request({
-          url: post.link
-        }).pipe(fs.createWriteStream(filepath));
-      }
+    var scannedImages = 0;
+    var downloadedImages = 0;
 
-    }, ()=> {
+    send(UI_ADD_ITEM, subreddit);
 
-    });
+    for(var pageNumber = 1; pageNumber < (pageCount + 1); pageNumber++) {
+      Imgur.getPage(subreddit, pageNumber, (page) => {
+        //send(CONSOLE_LOG_JSON, JSON.stringify(page));
 
-  },
-  downloadPages: function(subreddit, pages, imageCount) {
+        scannedImages += page.data.length;
 
-    send(CONSOLE_LOG, "hey uh, you there mate?");
-    testIO();
-    //send(UI_MOVE_ITEM, subreddit, "finished");
-    Files.setup();
+        for(var i = 0; i < page.data.length; i ++) {
+          var post = page.data[i];
+          var filepath = Files.createPath(post);
+          request({
+            url: post.link
+          }).pipe(fs.createWriteStream(filepath))
+          .on('close', () => {
+            send(CONSOLE_LOG, "WE DID A PICTURE THING MANG");
+            downloadedImages ++;
+            send(UI_UPDATE_STATUS, subreddit, "Downloaded " + downloadedImages + " of " + scannedImages + " images")
+          });
+        }
 
+      }, ()=> {
 
-
-    var completedImages = 0;
-    for (var i = 0; i < pages.length; i++) {
-      var page = pages[i];
-      for (var j = 0; j < page.data.length; j++) {
-        var post = page.data[j];
-        var filepath = Files.createPath(post);
-        //send(CONSOLE_LOG_JSON, JSON.stringify({url: post.link}));
-        //send(CONSOLE_LOG, filepath);
-        //request({url: post.link}).pipe(fse.createWriteStream(filepath));
-        // .on('close', () => {
-        //   completedImages += 1;
-        //   send(UI_UPDATE_STATUS, subreddit, "downloading " + completedImages + " of " + imageCount);
-        // });
-      }
+      });
     }
+
+
   }
 };
 
