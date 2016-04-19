@@ -161,7 +161,7 @@ var Commands = {
             url: post.link
           }).pipe(fs.createWriteStream(filepath))
           .on('close', () => {
-            send(CONSOLE_LOG, "WE DID A PICTURE THING MANG");
+            
             downloadedImages ++;
             send(UI_UPDATE_STATUS, subreddit, "Downloaded " + downloadedImages + " of " + scannedImages + " images");
 
