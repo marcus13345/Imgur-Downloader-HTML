@@ -18,13 +18,6 @@ function testIO() {
   request({url:"http://reddit.com/r/emmawatson.json"}, (err, response, body) => {});
 }
 
-//DESCRIBES THE AREAS IN DOM
-const CARD_GROUPS = ["downloading", "finished", "failed"];
-
-//DOM TEMPLATES FOR UI
-const DIVIDER = "<div class=\"divider\" id=\"r-{{Name}}-divider\"></div>";
-const ITEM_TEMPLATE = '<div class="item" id="r-{{Name}}"><div class="header">{{Name}}</div><div class="status">{{Status}}</div></div>';
-
 //MESSAGES TO BE SENT BETWEEN PROCESSES
 const READY_MESSAGE = 'READY_SEND_COMMAND';
 const CONSOLE_LOG = 'CONSOLE_LOG';
@@ -54,15 +47,24 @@ if(cluster.isWorker) {
 }
 
 var UI = {
+
+  //DESCRIBES THE AREAS IN DOM
+  CARD_GROUPS: ["downloading", "finished", "failed"],
+
+  //DOM TEMPLATES FOR UI
+  DIVIDER: "<div class=\"divider\" id=\"r-{{Name}}-divider\"></div>",
+  ITEM_TEMPLATE: '<div class="item" id="r-{{Name}}"><div class="header">'+
+  '{{Name}}</div><div class="status">{{Status}}</div></div>',
+
   addItem: function (area, subreddit, status) {
     var items = $("#" + area);
     var placeholder = $("#" + area + "Placeholder");
     if(!placeholder.hasClass("closed")) {
-      items.append(DIVIDER);
+      items.append(UI.DIVIDER);
       placeholder.addClass("closed");
     }
-    items.append(ITEM_TEMPLATE.replace(/\{\{Name\}\}/g, subreddit).replace(/\{\{Status\}\}/g, status));
-    items.append(DIVIDER.replace(/\{\{Name\}\}/g, subreddit));
+    items.append(UI.ITEM_TEMPLATE.replace(/\{\{Name\}\}/g, subreddit).replace(/\{\{Status\}\}/g, status));
+    items.append(UI.DIVIDER.replace(/\{\{Name\}\}/g, subreddit));
   },
   removeItem: function(subreddit) {
     var item = $("#r-" + subreddit);
@@ -71,7 +73,7 @@ var UI = {
     setTimeout(function(){
       item.remove();
       divider.remove();
-      CARD_GROUPS.forEach(function(tabName){
+      UI.CARD_GROUPS.forEach(function(tabName){
         var itemsLeft = $("#" + tabName + ">.item");
         var tab = $("#" + tabName);
         if(itemsLeft.length == 0) {
@@ -161,7 +163,7 @@ var Commands = {
             url: post.link
           }).pipe(fs.createWriteStream(filepath))
           .on('close', () => {
-            
+
             downloadedImages ++;
             send(UI_UPDATE_STATUS, subreddit, "Downloaded " + downloadedImages + " of " + scannedImages + " images");
 
