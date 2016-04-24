@@ -34,8 +34,8 @@ if(cluster.isMaster) {
     silent: false
   });
 
-  command("emmawatson");
-  command("nonexistantsubredditkljhdsfgkh");
+  //command("emmawatson");
+  //command("nonexistantsubredditkljhdsfgkh");
 
 }
 if(cluster.isWorker) {
