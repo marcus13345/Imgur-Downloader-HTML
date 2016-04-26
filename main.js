@@ -13,10 +13,11 @@ let mainWindow;
 function createWindow () {
 	// Create the browser window.
 	mainWindow = new BrowserWindow({
-		width: 992,
+		width: 1010,
 		height: 600//,
 		//'web-preferences': {'web-security': false}
 	});
+    mainWindow.setMenu(null);
 	// and load the index.html of the app.
 	mainWindow.loadURL('file://' + __dirname + '/html/index.html');
 	// Open the DevTools.
