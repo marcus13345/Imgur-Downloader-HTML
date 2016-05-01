@@ -1,30 +1,25 @@
-# electron-quick-start
+# SubSavur
 
-**Clone and run for a quick way to see an Electron in action.**
+This is a small program to download images from [imgur](http://imgur.com/r/aww) written entirely in [Node.js](https://nodejs.org/en/download/) using [electron](http://electron.atom.io/).
 
-This is a minimal Electron application based on the [Quick Start Guide](http://electron.atom.io/docs/latest/tutorial/quick-start) within the Electron documentation.
+## Getting Started
 
-A basic Electron application needs just these files:
+### Windows and Mac
 
-- `index.html` - A web page to render.
-- `main.js` - Starts the app and creates a browser window to render HTML.
-- `package.json` - Points to the app's main file and lists its details and dependencies.
+Prebuilt binaries can be found at [MAndWorks](http://www.mandworks.com/imgurdownloader.php).
 
-You can learn more about each of these components within the [Quick Start Guide](http://electron.atom.io/docs/latest/tutorial/quick-start).
+### Linux
 
-## To Use
+First, Be sure to have [git](https://git-scm.com/) and [Node.js/npm](https://nodejs.org/en/) installed.
 
-To clone and run this repository you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+Then run the following commands
 
 ```bash
-# Clone this repository
-git clone https://github.com/atom/electron-quick-start
-# Go into the repository
-cd electron-quick-start
-# Install dependencies and run the app
-npm install && npm start
+cd /usr/lib
+sudo git clone git://github.com/marcus13345/Imgur-Downloader-HTML.git
+cd Imgur-Downloader-HTML
+sudo npm install
+npm start
 ```
 
-Learn more about Electron and its API in the [documentation](http://electron.atom.io/docs/latest).
-
-#### License [CC0 (Public Domain)](LICENSE.md)
+#### License [GPL v3](LICENSE.md)
