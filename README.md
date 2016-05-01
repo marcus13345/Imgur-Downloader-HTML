@@ -22,4 +22,4 @@ sudo npm install
 npm start
 ```
 
-#### License [GPL v3](LICENSE.md)
+#### License [GPL-3.0](LICENSE.md)
