@@ -5,3 +5,21 @@
 <script type="text/javascript" src="firebase.js"></script>
 <script type="text/javascript" src="analytics.js"></script>
 <!-- <script type="text/javascript" src="download.js"></script> -->
+<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDZiKo6sHnP196QHCHqs8DNerSacBCFhMA",
+    authDomain: "imgurdownloader.firebaseapp.com",
+    databaseURL: "https://imgurdownloader.firebaseio.com",
+    storageBucket: "project-4025609819405494087.appspot.com",
+  };
+  var app = firebase.initializeApp(config);
+  var root = app.database().ref("/");
+  var users = root.child("subreddits");
+  users.on("value", function(snapshot){
+    console.log("we got a thing!");
+    console.log(snapshot.val());
+  });
+
+</script>

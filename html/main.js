@@ -7,11 +7,42 @@ var cluster = require('cluster');
 var os = require('os');
 var request = require('request');
 
+//var GUID =
+var Appdata = path.join(process.env.APPDATA || (process.platform == 'darwin' ? process.env.HOME + 'Library/Preferences' : '/var/local'), "MAndWorks", "SubSavur");
+//make sure our folder exists...
+fse.ensureDirSync(Appdata);
+
+//GUID SHIT
+var GUIDPath = path.join(Appdata, "GUID");
+var GUID;
+fs.access(GUIDPath, fs.F_OK, function(err) {
+    if (!err) {
+      GUID = fs.readFileSync(GUIDPath, 'utf8');
+    } else {
+      GUID = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+        return v.toString(16);
+      });
+      fs.writeFileSync(GUIDPath, GUID, 'utf8');
+    }
+});
+
+//VERSION SHIT
+var version;
+fs.access("Version", fs.F_OK, function(err) {
+    if (!err) {
+      version = fs.readFileSync("Version", 'utf8').toString().trim();
+    } else {
+      version = "Broken";
+    }
+});
+
+//because shit was fucking up.
 function testIO() {
   var filepath = path.join(__dirname, "image.jpg");
   var filepath2 = path.join(__dirname, "test.txt");
   var filepath3 = path.join(__dirname, "reddit.json");
-  send(CONSOLE_LOG, filepath);
+  send(CONSOLE_LOG, filepath); //yes the picture is glorious emma watson, have fun
   request({url:"http://i.imgur.com/InnEHyN.jpg"}).pipe(fs.createWriteStream(filepath));
   send(CONSOLE_LOG, filepath2);
   fs.writeFileSync(filepath2, "Sample Text");
@@ -34,7 +65,7 @@ if(cluster.isMaster) {
     silent: false
   });
 
-  //command("emmawatson");
+  command("emmawatson");
   //command("nonexistantsubredditkljhdsfgkh");
 
 }
@@ -44,6 +75,38 @@ if(cluster.isWorker) {
   });
 
   process.send(READY_MESSAGE);
+  send(CONSOLE_LOG, $.toString());
+}
+
+//big fat adapter
+// TODO actually write these bits
+var Analytics = {
+
+  LogDownload: function(subreddit, count) {
+    send(CONSOLE_LOG, "WE DOING THE THING");
+    send(CONSOLE_LOG, "" + subreddit + ": " + count);
+
+    try{
+      request.post(
+        "http://api.mandworks.com/subsavur/LogDownload.php",
+        {
+          "form": {
+            "DownloadType": "subreddit",
+            "DownloadAmount": count,
+            "Download": subreddit,
+            "GUID": GUID,
+            "SubSavurVersion": version
+          }
+        },
+        function(a, b, c) {}
+      );
+    }catch(e) {
+      send(CONSOLE_LOG, e);
+      send(CONSOLE_LOG_JSON, e);
+    }
+
+    send(CONSOLE_LOG, "WE DOING THE THING");
+  }
 }
 
 var UI = {
@@ -137,6 +200,8 @@ var Commands = {
   download: function (subreddit, pageCount) {
 
     Files.setup();
+
+    Analytics.LogDownload(subreddit, pageCount);
 
     var scannedImages = 0;
     var downloadedImages = 0;

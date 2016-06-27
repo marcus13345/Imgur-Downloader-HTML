@@ -12,23 +12,38 @@ let mainWindow;
 
 function createWindow () {
 	// Create the browser window.
-	mainWindow = new BrowserWindow({
-		width: 1010,
-		height: 600//,
-		//'web-preferences': {'web-security': false}
-	});
-    mainWindow.setMenu(null);
-	// and load the index.html of the app.
-	mainWindow.loadURL('file://' + __dirname + '/html/index.html');
-	// Open the DevTools.
-	//mainWindow.webContents.openDevTools();
-	// Emitted when the window is closed.
-	mainWindow.on('closed', function() {
-		// Dereference the window object, usually you would store windows
-		// in an array if your app supports multi windows, this is the time
-		// when you should delete the corresponding element.
-		mainWindow = null;
-	});
+	// mainWindow = new BrowserWindow({
+	// 	width: 1010,
+	// 	height: 600//,
+	// 	//'web-preferences': {'web-security': false}
+	// });
+  // mainWindow.setMenu(null);
+	// // and load the index.html of the app.
+	// mainWindow.loadURL('file://' + __dirname + '/html/index.html');
+	// // Open the DevTools.
+	// mainWindow.webContents.openDevTools();
+	// // Emitted when the window is closed.
+	// mainWindow.on('closed', function() {
+	// 	// Dereference the window object, usually you would store windows
+	// 	// in an array if your app supports multi windows, this is the time
+	// 	// when you should delete the corresponding element.
+	// 	mainWindow = null;
+	// });
+
+  var startTime = Date.now();
+  mainWindow = new BrowserWindow({width: 1010, height: 600, show: false});
+  mainWindow.setMenu(null);
+  //mainWindow.webContents.openDevTools();
+  // and load the index.html of the app.
+  mainWindow.loadUrl('file://' + __dirname + '/html/index.html');
+	mainWindow.webContents.openDevTools();
+  mainWindow.webContents.on('did-finish-load', function() {
+    setTimeout(function(){
+      mainWindow.show();
+      console.error(Date.now() - startTime);
+    }, 40);
+  });
+
 }
 
 // This method will be called when Electron has finished
