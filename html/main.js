@@ -1,41 +1,20 @@
 var $ = require('jQuery');
-var remote = null;
 var path = require('path');
 var fs = require('fs');
 var fse = require('fs-extra');
 var cluster = require('cluster');
 var os = require('os');
 var request = require('request');
-
-//var GUID =
-var Appdata = path.join(process.env.APPDATA || (process.platform == 'darwin' ? process.env.HOME + 'Library/Preferences' : '/var/local'), "MAndWorks", "SubSavur");
-//make sure our folder exists...
-fse.ensureDirSync(Appdata);
-
-//GUID SHIT
-var GUIDPath = path.join(Appdata, "GUID");
-var GUID;
-fs.access(GUIDPath, fs.F_OK, function(err) {
-    if (!err) {
-      GUID = fs.readFileSync(GUIDPath, 'utf8');
-    } else {
-      GUID = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
-        return v.toString(16);
-      });
-      fs.writeFileSync(GUIDPath, GUID, 'utf8');
-    }
-});
-
-//VERSION SHIT
-var version;
-fs.access("Version", fs.F_OK, function(err) {
-    if (!err) {
-      version = fs.readFileSync("Version", 'utf8').toString().trim();
-    } else {
-      version = "Broken";
-    }
-});
+var GUID = require("./GUID.js");
+var version = require("./version.js");
+var clustering = require("./customClustering.js");
+var send = clustering.send;
+var READY_MESSAGE = clustering.READY_MESSAGE;
+var CONSOLE_LOG = clustering.CONSOLE_LOG;
+var CONSOLE_LOG_JSON = clustering.CONSOLE_LOG_JSON;
+var UI_ADD_ITEM = clustering.UI_ADD_ITEM;
+var UI_UPDATE_STATUS = clustering.UI_UPDATE_STATUS;
+var UI_MOVE_ITEM = clustering.UI_MOVE_ITEM;
 
 //because shit was fucking up.
 function testIO() {
@@ -49,24 +28,16 @@ function testIO() {
   request({url:"http://reddit.com/r/emmawatson.json"}, (err, response, body) => {});
 }
 
-//MESSAGES TO BE SENT BETWEEN PROCESSES
-const READY_MESSAGE = 'READY_SEND_COMMAND';
-const CONSOLE_LOG = 'CONSOLE_LOG';
-const CONSOLE_LOG_JSON = 'CONSOLE_LOG_JSON';
-const UI_ADD_ITEM = 'UI_ADD_ITEM';
-const UI_UPDATE_STATUS = 'UI_UPDATE_STATUS';
-const UI_MOVE_ITEM = 'UI_MOVE_ITEM';
 
 if(cluster.isMaster) {
-  remote = require('remote');
   cluster.setupMaster({
     exec: path.join(__dirname, "main.js"),
     //args: ['--use', 'https'],
     silent: false
   });
 
-  command("emmawatson");
-  //command("nonexistantsubredditkljhdsfgkh");
+  //command("emmawatson");
+  // command("nonexistantsubredditkljhdsfgkh");
 
 }
 if(cluster.isWorker) {
@@ -75,39 +46,12 @@ if(cluster.isWorker) {
   });
 
   process.send(READY_MESSAGE);
-  send(CONSOLE_LOG, $.toString());
+  //send(CONSOLE_LOG, $.toString());
 }
 
 //big fat adapter
 // TODO actually write these bits
-var Analytics = {
-
-  LogDownload: function(subreddit, count) {
-    send(CONSOLE_LOG, "WE DOING THE THING");
-    send(CONSOLE_LOG, "" + subreddit + ": " + count);
-
-    try{
-      request.post(
-        "http://api.mandworks.com/subsavur/LogDownload.php",
-        {
-          "form": {
-            "DownloadType": "subreddit",
-            "DownloadAmount": count,
-            "Download": subreddit,
-            "GUID": GUID,
-            "SubSavurVersion": version
-          }
-        },
-        function(a, b, c) {}
-      );
-    }catch(e) {
-      send(CONSOLE_LOG, e);
-      send(CONSOLE_LOG_JSON, e);
-    }
-
-    send(CONSOLE_LOG, "WE DOING THE THING");
-  }
-}
+var Analytics = require("./Analytics.js");
 
 var UI = {
 
@@ -201,7 +145,13 @@ var Commands = {
 
     Files.setup();
 
-    Analytics.LogDownload(subreddit, pageCount);
+    send(CONSOLE_LOG, "asdf");
+    try{
+      Analytics.LogDownload(subreddit, pageCount);
+    }catch(e) {
+      send(CONSOLE_LOG, e.toString());
+    }
+    send(CONSOLE_LOG, "asdf");
 
     var scannedImages = 0;
     var downloadedImages = 0;
@@ -302,9 +252,4 @@ function search(e) {
   command(commandStr);
   $("#search>input").val("");
   return false;
-}
-
-//function for sending RPCs back to master
-function send(...args) {
-  process.send(args.join("\r\n"))
 }
