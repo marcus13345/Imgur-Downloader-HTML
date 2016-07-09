@@ -10,12 +10,16 @@
 				font-weight: 400;
 				src: url(OpenSans400.woff2) format('woff2');
 			}
+      html {
+        background-color: transparent;
+      }
 			body {
 				margin: 24px;
 				box-shadow: 0px 0px 5px rbga(0, 0, 0, .3);
 				background-color: white;
-				border-radius: 30px;
 				font-family: 'Open Sans';
+				border-radius: 30px;
+        overflow: hidden;
 			}
 			h1 {
 				font-size: 24px;
@@ -57,10 +61,16 @@
 			There's some shit in there you might like, idunno. Whatever.
 		</div>
 		<div class="buttons">
-			<div class="button color" onclick="require('shell').openExternal('http://www.google.com')">
+      <script type="text/javascript">
+        const {ipcRenderer} = require('electron');
+        function sendMessage(msg) {
+          ipcRenderer.send('asynchronous-message', msg);
+        }
+      </script>
+			<div class="button color" onclick="sendMessage('yes');">
 				UPDATE
 			</div>
-			<div class="button">
+			<div class="button" onclick="sendMessage('no');">
 				FUCK THAT
 			</div>
 		</div>

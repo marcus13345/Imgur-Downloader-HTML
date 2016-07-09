@@ -10,6 +10,7 @@ const BrowserWindow = electron.BrowserWindow;
 // be closed automatically when the JavaScript object is garbage collected.
 let splashscreen;
 let mainWindow;
+let updateWindow;
 
 
 var Analytics = require("./html/Analytics.js");
@@ -40,22 +41,43 @@ function checkUpdates() {
     var newVersion = JSON.parse(c).version;
     if(version != newVersion) {
       var startTime = Date.now();
-      splashscreen = new BrowserWindow({width: 300, height: 200, show: false, frame: false});
-      splashscreen.setMenu(null);
+      updateWindow = new BrowserWindow({width: 300, height: 200, show: false, frame: false});
+      updateWindow.setMenu(null);
       //splashscreen.webContents.openDevTools();
       // and load the index.html of the app.
-      splashscreen.loadUrl('file://' + __dirname + '/html/update.html');
+      updateWindow.loadUrl('file://' + __dirname + '/html/update.html');
       // splashscreen.webContents.openDevTools();
-      splashscreen.webContents.on('did-finish-load', function() {
+      updateWindow.webContents.on('did-finish-load', function() {
         setTimeout(function(){
-          splashscreen.show();
+          updateWindow.show();
           //checkUpdates();
         }, 40);
       });
+    }else{
+      openMainWindow();
     }
   });
 
 }
+
+// In main process.
+const {ipcMain} = require('electron');
+ipcMain.on('asynchronous-message', (event, arg) => {
+  if(arg == "yes") {
+    // ayyyyy updates!
+    Analytics.LogEvent(Analytics.EVENTS.UPDATE_ACCEPTED);
+    require('shell').openExternal('http://www.mandworks.com/imgurdownloader.php');
+    closeAllButMain();
+
+  } else if (arg == "no") {
+    Analytics.LogEvent(Analytics.EVENTS.UPDATE_REJECTED);
+    openMainWindow();
+  }
+
+  //close windows after we do our thing so
+  // window-all-closed never fires...
+
+});
 
 function openMainWindow() {
 
@@ -71,11 +93,20 @@ function openMainWindow() {
   mainWindow.webContents.on('did-finish-load', function() {
     setTimeout(function(){
       mainWindow.show();
-      splashscreen.close();
+      closeAllButMain();
       console.error(Date.now() - startTime);
     }, 40);
   });
 
+}
+
+function closeAllButMain() {
+  try{
+    splashscreen.close();
+  }catch(e){}
+  try{
+    updateWindow.close();
+  }catch(e){}
 }
 
 // This method will be called when Electron has finished
