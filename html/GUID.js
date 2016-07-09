@@ -3,7 +3,7 @@ var fs = require('fs');
 var fse = require('fs-extra');
 var path = require('path');
 //var GUID =
-var Appdata = path.join(process.env.APPDATA || (process.platform == 'darwin' ? process.env.HOME + 'Library/Preferences' : '/var/local'), "MAndWorks", "SubSavur");
+var Appdata = path.join(process.env.APPDATA || (process.platform == 'darwin' ? path.join(process.env.HOME, 'Library/Preferences') : '/var/local'), "MAndWorks", "SubSavur");
 //make sure our folder exists...
 fse.ensureDirSync(Appdata);
 

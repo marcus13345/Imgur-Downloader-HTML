@@ -12,9 +12,11 @@ let splashscreen;
 let mainWindow;
 
 
-var Analytics = require("./html/Analytics.js")
+var Analytics = require("./html/Analytics.js");
+var version = require("./html/version.js");
+var request = require("request");
 
-function createWindow () {
+function openSplashScreen () {
   Analytics.LogEvent(Analytics.EVENTS.SESSION_STARTED);
   var startTime = Date.now();
   splashscreen = new BrowserWindow({width: 800, height: 400, show: false, frame: false});
@@ -26,22 +28,51 @@ function createWindow () {
   splashscreen.webContents.on('did-finish-load', function() {
     setTimeout(function(){
       splashscreen.show();
-    	// splashscreen.webContents.openDevTools();
-      console.error(Date.now() - startTime);
+    	checkUpdates();
+    }, 40);
+  });
+
+}
+
+function checkUpdates() {
+
+  request('http://api.mandworks.com/subsavur/GetVersion.php', function(a, b, c){
+    var newVersion = JSON.parse(c).version;
+    if(version != newVersion) {
       var startTime = Date.now();
-      mainWindow = new BrowserWindow({width: 1010, height: 600, show: false});
-      mainWindow.setMenu(null);
-      //mainWindow.webContents.openDevTools();
+      splashscreen = new BrowserWindow({width: 300, height: 200, show: false, frame: false});
+      splashscreen.setMenu(null);
+      //splashscreen.webContents.openDevTools();
       // and load the index.html of the app.
-      mainWindow.loadUrl('file://' + __dirname + '/html/index.html');
-      // mainWindow.webContents.openDevTools();
-      mainWindow.webContents.on('did-finish-load', function() {
+      splashscreen.loadUrl('file://' + __dirname + '/html/update.html');
+      // splashscreen.webContents.openDevTools();
+      splashscreen.webContents.on('did-finish-load', function() {
         setTimeout(function(){
-          mainWindow.show();
-          splashscreen.close();
-          console.error(Date.now() - startTime);
+          splashscreen.show();
+          //checkUpdates();
         }, 40);
       });
+    }
+  });
+
+}
+
+function openMainWindow() {
+
+  // splashscreen.webContents.openDevTools();
+  console.error(Date.now() - startTime);
+  var startTime = Date.now();
+  mainWindow = new BrowserWindow({width: 1010, height: 600, show: false});
+  mainWindow.setMenu(null);
+  //mainWindow.webContents.openDevTools();
+  // and load the index.html of the app.
+  mainWindow.loadUrl('file://' + __dirname + '/html/index.html');
+  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.on('did-finish-load', function() {
+    setTimeout(function(){
+      mainWindow.show();
+      splashscreen.close();
+      console.error(Date.now() - startTime);
     }, 40);
   });
 
@@ -49,7 +80,7 @@ function createWindow () {
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
-app.on('ready', createWindow);
+app.on('ready', openSplashScreen);
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
