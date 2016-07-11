@@ -4,17 +4,18 @@
     <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
     <ROW Property="ALLUSERS" Value="1"/>
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
-    <ROW Property="ARPHELPLINK" Value="mailto:marcus13345@live.com"/>
+    <ROW Property="ARPCONTACT" Value="marcus@mandworks.com"/>
+    <ROW Property="ARPHELPLINK" Value="mailto:marcus@mandworks.com"/>
     <ROW Property="ARPNOMODIFY" MultiBuildValue="DefaultBuild:1"/>
     <ROW Property="ARPNOREPAIR" Value="1"/>
     <ROW Property="ARPPRODUCTICON" Value="windows_1.exe" Type="8"/>
     <ROW Property="ARPURLINFOABOUT" Value="http://www.mandworks.com/imgurdownloader.php"/>
     <ROW Property="CTRLS" Value="2"/>
     <ROW Property="Manufacturer" Value="MAndWorks"/>
-    <ROW Property="ProductCode" Value="1033:{48AB899F-7626-4D79-90C3-0663F71D9EEF} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{6F6BACB2-92C8-47B0-93C2-A7DD2AD13BC7} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="SubSavur"/>
-    <ROW Property="ProductVersion" Value="1.0.0" Type="32"/>
+    <ROW Property="ProductVersion" Value="9.0" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{BD39D3AC-7791-4769-8713-C98F9931972D}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -545,6 +546,7 @@
     <ROW File="DOMEval.js" Component_="access.js" FileName="DOMEval.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\jquery\src\core\DOMEval.js" SelfReg="false" NextFile="init.js"/>
     <ROW File="Data.js" Component_="accepts.js" FileName="Data.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\jquery\src\data\Data.js" SelfReg="false" NextFile="support.js_3"/>
     <ROW File="FontAwesome.otf" Component_="fontawesomewebfont.eot" FileName="FONTAW~1.OTF|FontAwesome.otf" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\html\FA\fonts\FontAwesome.otf" SelfReg="false" NextFile="HELPUSOUT.txt"/>
+    <ROW File="GUID.js" Component_="analytics.js" FileName="GUID.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\html\GUID.js" SelfReg="false" NextFile="OpenSans300.woff2"/>
     <ROW File="Gruntfile.js" Component_="CHANGELOG.md" FileName="GRUNTF~1.JS|Gruntfile.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\bootstrap\Gruntfile.js" SelfReg="false" NextFile="affix.js"/>
     <ROW File="HELPUSOUT.txt" Component_="HELPUSOUT.txt" FileName="HELP-U~1.TXT|HELP-US-OUT.txt" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\html\FA\HELP-US-OUT.txt" SelfReg="false" NextFile="firebase.js"/>
     <ROW File="HISTORY.md_2" Component_="HISTORY.md" FileName="HISTORY.md" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\mime-types\HISTORY.md" SelfReg="false" NextFile="index.js_63"/>
@@ -634,6 +636,9 @@
     <ROW File="Makefile_5" Component_="gitmodules" FileName="Makefile" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\http-signature\node_modules\jsprim\node_modules\extsprintf\Makefile" SelfReg="false" NextFile="Makefile.deps"/>
     <ROW File="Makefile_6" Component_="gitmodules_1" FileName="Makefile" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\http-signature\node_modules\jsprim\node_modules\verror\Makefile" SelfReg="false" NextFile="Makefile.targ_1"/>
     <ROW File="Makefile_7" Component_="npmignore_28" FileName="Makefile" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\json-stringify-safe\Makefile" SelfReg="false" NextFile="package.json_79"/>
+    <ROW File="OpenSans300.woff2" Component_="analytics.js" FileName="OPENSA~1.WOF|OpenSans300.woff2" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\html\OpenSans300.woff2" SelfReg="false" NextFile="OpenSans400.woff2"/>
+    <ROW File="OpenSans400.woff2" Component_="analytics.js" FileName="OPENSA~2.WOF|OpenSans400.woff2" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\html\OpenSans400.woff2" SelfReg="false" NextFile="OpenSans700.woff2"/>
+    <ROW File="OpenSans700.woff2" Component_="analytics.js" FileName="OPENSA~3.WOF|OpenSans700.woff2" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\html\OpenSans700.woff2" SelfReg="false" NextFile="splashscreen.html"/>
     <ROW File="README.markdown" Component_="travis.yml" FileName="README~1.MAR|README.markdown" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\fs-extra\node_modules\rimraf\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\node_modules\concat-map\README.markdown" SelfReg="false" NextFile="map.js_1"/>
     <ROW File="README.md" Component_="CHANGELOG.md" FileName="README.md" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\bootstrap\README.md" SelfReg="false" NextFile="npmignore"/>
     <ROW File="README.md_1" Component_="fs.js" FileName="README.md" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\fs-extra\node_modules\graceful-fs\README.md" SelfReg="false" NextFile="npmignore_1"/>
@@ -708,13 +713,12 @@
     <ROW File="README.md_86" Component_="LICENSE_8" FileName="README.md" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\tough-cookie\README.md" SelfReg="false" NextFile="jshintrc_5"/>
     <ROW File="README.md_87" Component_="jshintrc_5" FileName="README.md" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\tunnel-agent\README.md" SelfReg="false" NextFile="package.json_88"/>
     <ROW File="README.md_88" Component_="eslintrc_1" FileName="README.md" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\README.md" SelfReg="false" NextFile="request.js"/>
-    <ROW File="README.md_89" Component_="gitignore" FileName="README.md" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\README.md" SelfReg="false" NextFile="SubSavurwin.aip"/>
+    <ROW File="README.md_89" Component_="gitignore" FileName="README.md" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\README.md" SelfReg="false" NextFile="electron.asar"/>
     <ROW File="README.md_9" Component_="npmignore_3" FileName="README.md" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\fs-extra\node_modules\rimraf\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\README.md" SelfReg="false" NextFile="package.json_11"/>
     <ROW File="Readme.md_31" Component_="npmignore_10" FileName="Readme.md" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\combined-stream\node_modules\delayed-stream\Readme.md" SelfReg="false" NextFile="package.json_33"/>
     <ROW File="Readme.md_32" Component_="License" FileName="Readme.md" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\combined-stream\Readme.md" SelfReg="false" NextFile="eslintrc_2"/>
     <ROW File="Readme.md_46" Component_="History.md" FileName="Readme.md" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\har-validator\node_modules\commander\Readme.md" SelfReg="false" NextFile="npmignore_15"/>
     <ROW File="SubSavur.exe" Component_="SubSavur.exe" FileName="SubSavur.exe" Attributes="0" SourcePath="SubSavur-win32-ia32\SubSavur.exe" SelfReg="false" NextFile="ui_resources_200_percent.pak" DigSign="true"/>
-    <ROW File="SubSavurwin.aip" Component_="gitignore" FileName="SUBSAV~1.AIP|SubSavur-win.aip" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\SubSavur-win.aip" SelfReg="false" NextFile="version_1"/>
     <ROW File="Tween.js" Component_="animatedSelector.js" FileName="Tween.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\jquery\src\effects\Tween.js" SelfReg="false" NextFile="effects.js"/>
     <ROW File="UbuntuM.ttf" Component_="analytics.js" FileName="Ubuntu-M.ttf" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\html\Ubuntu-M.ttf" SelfReg="false" NextFile="worker.js"/>
     <ROW File="_evalUrl.js" Component_="buildFragment.js" FileName="_evalUrl.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\jquery\src\manipulation\_evalUrl.js" SelfReg="false" NextFile="manipulation.js"/>
@@ -732,6 +736,7 @@
     <ROW File="address" Component_="address" FileName="address" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\http-signature\node_modules\jsprim\node_modules\json-schema\draft-03\examples\address" SelfReg="false" NextFile="calendar"/>
     <ROW File="adjustCSS.js" Component_="addGetHookIf.js" FileName="ADJUST~1.JS|adjustCSS.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\jquery\src\css\adjustCSS.js" SelfReg="false" NextFile="curCSS.js"/>
     <ROW File="affix.js" Component_="affix.js" FileName="affix.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\bootstrap\js\affix.js" SelfReg="false" NextFile="alert.js"/>
+    <ROW File="aip_version" Component_="gitignore" FileName="AIP_VE~1|aip_version" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\aip_version" SelfReg="false" NextFile="cct.js"/>
     <ROW File="ajax.js" Component_="jshintrc_1" FileName="ajax.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\jquery\src\ajax.js" SelfReg="false" NextFile="attr.js"/>
     <ROW File="ajax.js_1" Component_="ajax.js" FileName="ajax.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\jquery\src\event\ajax.js" SelfReg="false" NextFile="alias.js"/>
     <ROW File="alert.js" Component_="affix.js" FileName="alert.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\bootstrap\js\alert.js" SelfReg="false" NextFile="button.js"/>
@@ -805,8 +810,6 @@
     <ROW File="bsglyphiconsdatagenerator.js" Component_="jshintrc" FileName="BS-GLY~1.JS|bs-glyphicons-data-generator.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\bootstrap\grunt\bs-glyphicons-data-generator.js" SelfReg="false" NextFile="bslessdocparser.js"/>
     <ROW File="bslessdocparser.js" Component_="jshintrc" FileName="BS-LES~1.JS|bs-lessdoc-parser.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\bootstrap\grunt\bs-lessdoc-parser.js" SelfReg="false" NextFile="bsrawfilesgenerator.js"/>
     <ROW File="bsrawfilesgenerator.js" Component_="jshintrc" FileName="BS-RAW~1.JS|bs-raw-files-generator.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\bootstrap\grunt\bs-raw-files-generator.js" SelfReg="false" NextFile="configBridge.json"/>
-    <ROW File="build.bat" Component_="gitignore" FileName="build.bat" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\build.bat" SelfReg="false" NextFile="build.sh"/>
-    <ROW File="build.sh" Component_="gitignore" FileName="build.sh" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\build.sh" SelfReg="false" NextFile="analytics.js"/>
     <ROW File="buildFragment.js" Component_="buildFragment.js" FileName="BUILDF~1.JS|buildFragment.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\jquery\src\manipulation\buildFragment.js" SelfReg="false" NextFile="createSafeFragment.js"/>
     <ROW File="button.js" Component_="affix.js" FileName="button.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\bootstrap\js\button.js" SelfReg="false" NextFile="carousel.js"/>
     <ROW File="buttongroups.less" Component_="alerts.less" FileName="BUTTON~1.LES|button-groups.less" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\bootstrap\less\button-groups.less" SelfReg="false" NextFile="buttons.less"/>
@@ -820,6 +823,7 @@
     <ROW File="card" Component_="address" FileName="card" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\http-signature\node_modules\jsprim\node_modules\json-schema\draft-03\examples\card" SelfReg="false" NextFile="geo"/>
     <ROW File="carousel.js" Component_="affix.js" FileName="carousel.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\bootstrap\js\carousel.js" SelfReg="false" NextFile="collapse.js"/>
     <ROW File="carousel.less" Component_="alerts.less" FileName="CAROUS~1.LES|carousel.less" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\bootstrap\less\carousel.less" SelfReg="false" NextFile="close.less"/>
+    <ROW File="cct.js" Component_="analytics.js" FileName="cct.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\html\cct.js" SelfReg="false" NextFile="customClustering.js"/>
     <ROW File="centerblock.less" Component_="alerts.less_1" FileName="CENTER~1.LES|center-block.less" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\bootstrap\less\mixins\center-block.less" SelfReg="false" NextFile="clearfix.less"/>
     <ROW File="changelog.md_4" Component_="changelog.md" FileName="CHANGE~1.MD|changelog.md" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\fs-extra\node_modules\rimraf\node_modules\glob\changelog.md" SelfReg="false" NextFile="common.js"/>
     <ROW File="class2type.js" Component_="arr.js" FileName="CLASS2~1.JS|class2type.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\jquery\src\var\class2type.js" SelfReg="false" NextFile="concat.js"/>
@@ -864,6 +868,7 @@
     <ROW File="cssExpand.js" Component_="cssExpand.js" FileName="CSSEXP~1.JS|cssExpand.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\jquery\src\css\var\cssExpand.js" SelfReg="false" NextFile="getStyles.js"/>
     <ROW File="curCSS.js" Component_="addGetHookIf.js" FileName="curCSS.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\jquery\src\css\curCSS.js" SelfReg="false" NextFile="defaultDisplay.js"/>
     <ROW File="curve255.js" Component_="core.js" FileName="curve255.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\http-signature\node_modules\sshpk\node_modules\jodid25519\lib\curve255.js" SelfReg="false" NextFile="dh.js"/>
+    <ROW File="customClustering.js" Component_="analytics.js" FileName="CUSTOM~1.JS|customClustering.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\html\customClustering.js" SelfReg="false" NextFile="GUID.js"/>
     <ROW File="d3dcompiler_47.dll" Component_="d3dcompiler_47.dll" FileName="D3DCOM~1.DLL|d3dcompiler_47.dll" Attributes="0" SourcePath="SubSavur-win32-ia32\d3dcompiler_47.dll" SelfReg="false" NextFile="ffmpeg.dll"/>
     <ROW File="da.pak" Component_="am.pak" FileName="da.pak" Attributes="0" SourcePath="SubSavur-win32-ia32\locales\da.pak" SelfReg="false" NextFile="de.pak"/>
     <ROW File="dashdash.bash_completion.in" Component_="dashdash.bash_completion.in" FileName="DASHDA~1.IN|dashdash.bash_completion.in" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\http-signature\node_modules\sshpk\node_modules\dashdash\etc\dashdash.bash_completion.in" SelfReg="false" NextFile="dashdash.js"/>
@@ -960,7 +965,7 @@
     <ROW File="getAll.js" Component_="buildFragment.js" FileName="getAll.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\jquery\src\manipulation\getAll.js" SelfReg="false" NextFile="setGlobalEval.js"/>
     <ROW File="getProxyFromURI.js" Component_="auth.js" FileName="GETPRO~1.JS|getProxyFromURI.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\lib\getProxyFromURI.js" SelfReg="false" NextFile="har.js"/>
     <ROW File="getStyles.js" Component_="cssExpand.js" FileName="GETSTY~1.JS|getStyles.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\jquery\src\css\var\getStyles.js" SelfReg="false" NextFile="isHidden.js"/>
-    <ROW File="gitignore" Component_="gitignore" FileName="GITIGN~1|.gitignore" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\.gitignore" SelfReg="false" NextFile="build.bat"/>
+    <ROW File="gitignore" Component_="gitignore" FileName="GITIGN~1|.gitignore" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\.gitignore" SelfReg="false" NextFile="analytics.js"/>
     <ROW File="gitmodules" Component_="gitmodules" FileName="GITMOD~1|.gitmodules" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\http-signature\node_modules\jsprim\node_modules\extsprintf\.gitmodules" SelfReg="false" NextFile="simple.js"/>
     <ROW File="gitmodules_1" Component_="gitmodules_1" FileName="GITMOD~1|.gitmodules" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\http-signature\node_modules\jsprim\node_modules\verror\.gitmodules" SelfReg="false" NextFile="npmignore_26"/>
     <ROW File="glob.js" Component_="changelog.md" FileName="glob.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\fs-extra\node_modules\rimraf\node_modules\glob\glob.js" SelfReg="false" NextFile="LICENSE_8"/>
@@ -1011,7 +1016,7 @@
     <ROW File="icon_32x322x.png" Component_="icon_128x128.png" FileName="ICON_3~2.PNG|icon_32x32@2x.png" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\icons\mac.iconset\icon_32x32@2x.png" SelfReg="false" NextFile="icon_512x512.png"/>
     <ROW File="icon_512x512.png" Component_="icon_128x128.png" FileName="ICON_5~1.PNG|icon_512x512.png" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\icons\mac.iconset\icon_512x512.png" SelfReg="false" NextFile="icon_512x5122x.png"/>
     <ROW File="icon_512x5122x.png" Component_="icon_128x128.png" FileName="ICON_5~2.PNG|icon_512x512@2x.png" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\icons\mac.iconset\icon_512x512@2x.png" SelfReg="false" NextFile="mac.png"/>
-    <ROW File="icudtl.dat" Component_="LICENSE" FileName="icudtl.dat" Attributes="0" SourcePath="SubSavur-win32-ia32\icudtl.dat" SelfReg="false"/>
+    <ROW File="icudtl.dat" Component_="LICENSE" FileName="icudtl.dat" Attributes="0" SourcePath="SubSavur-win32-ia32\icudtl.dat" SelfReg="false" NextFile="aip_version"/>
     <ROW File="id.pak" Component_="am.pak" FileName="id.pak" Attributes="0" SourcePath="SubSavur-win32-ia32\locales\id.pak" SelfReg="false" NextFile="it.pak"/>
     <ROW File="ignore.txt" Component_="ignore.txt" FileName="ignore.txt" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\hawk\node_modules\hoek\test\modules\ignore.txt" SelfReg="false" NextFile="test1.js"/>
     <ROW File="image.less" Component_="alerts.less_1" FileName="IMAGE~1.LES|image.less" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\bootstrap\less\mixins\image.less" SelfReg="false" NextFile="labels.less_1"/>
@@ -1486,6 +1491,7 @@
     <ROW File="sl.pak" Component_="am.pak" FileName="sl.pak" Attributes="0" SourcePath="SubSavur-win32-ia32\locales\sl.pak" SelfReg="false" NextFile="sr.pak"/>
     <ROW File="slice.js" Component_="arr.js" FileName="slice.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\jquery\src\var\slice.js" SelfReg="false" NextFile="support.js_8"/>
     <ROW File="snapshot_blob.bin" Component_="LICENSE" FileName="SNAPSH~1.BIN|snapshot_blob.bin" Attributes="0" SourcePath="SubSavur-win32-ia32\snapshot_blob.bin" SelfReg="false" NextFile="SubSavur.exe"/>
+    <ROW File="splashscreen.html" Component_="analytics.js" FileName="SPLASH~1.HTM|splashscreen.html" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\html\splashscreen.html" SelfReg="false" NextFile="update.html"/>
     <ROW File="sr.pak" Component_="am.pak" FileName="sr.pak" Attributes="0" SourcePath="SubSavur-win32-ia32\locales\sr.pak" SelfReg="false" NextFile="sv.pak"/>
     <ROW File="ssh.js" Component_="auto.js" FileName="ssh.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\http-signature\node_modules\sshpk\lib\formats\ssh.js" SelfReg="false" NextFile="index.js_55"/>
     <ROW File="sshbuffer.js" Component_="algs.js" FileName="SSH-BU~1.JS|ssh-buffer.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\http-signature\node_modules\sshpk\lib\ssh-buffer.js" SelfReg="false" NextFile="utils.js_3"/>
@@ -1496,6 +1502,7 @@
     <ROW File="sshpkverify" Component_="sshpkconv" FileName="SSHPK-~3|sshpk-verify" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\http-signature\node_modules\sshpk\bin\sshpk-verify" SelfReg="false" NextFile="algs.js"/>
     <ROW File="sshpkverify.1" Component_="sshpkconv.1" FileName="SSHPK-~3.1|sshpk-verify.1" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\http-signature\node_modules\sshpk\man\man1\sshpk-verify.1" SelfReg="false" NextFile="npmignore_28"/>
     <ROW File="sshprivate.js" Component_="auto.js" FileName="SSH-PR~1.JS|ssh-private.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\http-signature\node_modules\sshpk\lib\formats\ssh-private.js" SelfReg="false" NextFile="ssh.js"/>
+    <ROW File="ssversion" Component_="gitignore" FileName="SSVERS~1|ssversion" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\ssversion" SelfReg="false"/>
     <ROW File="store.js" Component_="cookie.js" FileName="store.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\tough-cookie\lib\store.js" SelfReg="false" NextFile="LICENSE_69"/>
     <ROW File="stream.markdown" Component_="stream.markdown" FileName="STREAM~1.MAR|stream.markdown" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\bl\node_modules\readable-stream\doc\stream.markdown" SelfReg="false" NextFile="md"/>
     <ROW File="stringify.js" Component_="npmignore_28" FileName="STRING~1.JS|stringify.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\json-stringify-safe\stringify.js" SelfReg="false" NextFile="mocha.opts"/>
@@ -1600,6 +1607,7 @@
     <ROW File="ui_resources_200_percent.pak" Component_="LICENSE" FileName="UI_RES~1.PAK|ui_resources_200_percent.pak" Attributes="0" SourcePath="SubSavur-win32-ia32\ui_resources_200_percent.pak" SelfReg="false" NextFile="vccorlib120.dll"/>
     <ROW File="uk.pak" Component_="am.pak" FileName="uk.pak" Attributes="0" SourcePath="SubSavur-win32-ia32\locales\uk.pak" SelfReg="false" NextFile="vi.pak"/>
     <ROW File="uniqueItems.json" Component_="additionalItems.json" FileName="UNIQUE~1.JSO|uniqueItems.json" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\har-validator\node_modules\is-my-json-valid\test\json-schema-draft4\uniqueItems.json" SelfReg="false" NextFile="jsonschema.js"/>
+    <ROW File="update.html" Component_="analytics.js" FileName="UPDATE~1.HTM|update.html" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\html\update.html" SelfReg="false" NextFile="version.js"/>
     <ROW File="uri.js" Component_="browser.js_3" FileName="uri.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\hawk\test\uri.js" SelfReg="false" NextFile="utils.js_1"/>
     <ROW File="usage.js" Component_="usage.js" FileName="usage.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\hawk\example\usage.js" SelfReg="false" NextFile="hawk.png"/>
     <ROW File="util.js" Component_="util.js" FileName="util.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\bl\node_modules\readable-stream\node_modules\core-util-is\lib\util.js" SelfReg="false" NextFile="LICENSE_23"/>
@@ -1624,7 +1632,7 @@
     <ROW File="verror.js" Component_="levelsverror.js" FileName="verror.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\http-signature\node_modules\jsprim\node_modules\verror\examples\verror.js" SelfReg="false" NextFile="werror.js"/>
     <ROW File="verror.js_1" Component_="verror.js" FileName="verror.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\http-signature\node_modules\jsprim\node_modules\verror\lib\verror.js" SelfReg="false" NextFile="LICENSE_58"/>
     <ROW File="version" Component_="LICENSE" FileName="version" Attributes="0" SourcePath="SubSavur-win32-ia32\version" SelfReg="false" NextFile="xinput1_3.dll"/>
-    <ROW File="version_1" Component_="gitignore" FileName="version" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\version" SelfReg="false" NextFile="electron.asar"/>
+    <ROW File="version.js" Component_="analytics.js" FileName="version.js" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\html\version.js" SelfReg="false" NextFile="ssversion"/>
     <ROW File="vi.pak" Component_="am.pak" FileName="vi.pak" Attributes="0" SourcePath="SubSavur-win32-ia32\locales\vi.pak" SelfReg="false" NextFile="zhCN.pak"/>
     <ROW File="wells.less" Component_="alerts.less" FileName="WELLS~1.LES|wells.less" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\bootstrap\less\wells.less" SelfReg="false" NextFile="LICENSE_1"/>
     <ROW File="wercker.yml" Component_="dockerignore" FileName="wercker.yml" Attributes="0" SourcePath="SubSavur-win32-ia32\resources\app\node_modules\request\node_modules\form-data\wercker.yml" SelfReg="false" NextFile="harvalidator"/>
@@ -1715,11 +1723,11 @@
     <ROW Name="windows_1.exe" SourcePath="..\icons\windows.ico" Index="0"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
-    <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>
     <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
     <ROW Action="AI_STORE_LOCATION" Condition="(Not Installed) OR REINSTALL" Sequence="1501"/>
     <ROW Action="AI_PREPARE_UPGRADE" Condition="AI_UPGRADE=&quot;No&quot; AND (Not Installed)" Sequence="1399"/>
     <ROW Action="AI_ResolveKnownFolders" Sequence="51"/>
+    <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="201"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
     <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
