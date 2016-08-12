@@ -17,6 +17,8 @@ var Analytics = require("./html/Analytics.js");
 var version = require("./html/version.js");
 var request = require("request");
 
+process.title = "poopfart";
+
 function openSplashScreen () {
   Analytics.LogEvent(Analytics.EVENTS.SESSION_STARTED);
   var startTime = Date.now();
@@ -67,10 +69,10 @@ ipcMain.on('asynchronous-message', (event, arg) => {
     // ayyyyy updates!
     Analytics.LogEvent(Analytics.EVENTS.UPDATE_ACCEPTED);
     require('shell').openExternal('http://www.mandworks.com/imgurdownloader.php');
-    closeAllButMain();
-
+    killZombies(function() {closeAllButMain();});
   } else if (arg == "no") {
     Analytics.LogEvent(Analytics.EVENTS.UPDATE_REJECTED);
+    updateWindow.close();
     openMainWindow();
   }
 
@@ -107,11 +109,27 @@ function closeAllButMain() {
   try{
     updateWindow.close();
   }catch(e){}
+
+}
+
+function killZombies(cb) {
+  if(process.platform == "win32") {
+    //okay so here we give a big ass fuck you to the SubSavur process...
+    var exec = require('child_process').exec;
+    console.log(process.platform);
+    var ls = exec('taskkill.exe /f /im SubSavur.exe', function(a, b, c){
+      cb();
+    });
+  }
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
-app.on('ready', openSplashScreen);
+app.on('ready', function() {
+
+  openSplashScreen();
+
+});
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
